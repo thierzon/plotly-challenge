@@ -65,7 +65,7 @@ function plotData() {
     var bardata = [trace1];
 
     var barlayout = {
-        title: "Top 10 OTUs in Sample",
+        title: "OTUs in Sample",
         xaxis: {title: "Prevalence in Sample"},
         yaxis: {title: "OTU ID Number"}  
     };
