@@ -7,7 +7,21 @@ var gaugechart = d3.select("#gauge");
 
 // plot data at page initialization
 function init() {
+
+  // read in data from json file using d3
+  d3.json("samples.json").then(function(data) {
+    var names = Object.values(data.names);
+  
+    // add test samples to dropdown menu
+    names.forEach((item) => {
+      var row = dropdown.append("option").attr("value", item);
+      row.text(item);
+    });
+  });
+  
+  // run plot data function
   plotData();
+
 };
 
 // plot data function to update page
@@ -18,13 +32,7 @@ function plotData() {
     var samples = Object.values(data.samples);
     var names = Object.values(data.names);
     var metadata = Object.values(data.metadata);
-  
-    // add test samples to dropdown menu
-    names.forEach((item) => {
-      var row = dropdown.append("option").attr("value", item);
-      row.text(item);
-    });
-
+    
     // populate demo table
     var tableBody = demotable.append("tbody");
     var inputValue = dropdown.property("value");
@@ -83,7 +91,7 @@ function plotData() {
 
     var bubblelayout = {
         xaxis: {title: "OTU ID Number"},
-        yaxis: {title: "Sample"}  
+        yaxis: {title: "Prevalence in Sample"}  
     };
     Plotly.newPlot("bubble", bubbledata, bubblelayout);
 
